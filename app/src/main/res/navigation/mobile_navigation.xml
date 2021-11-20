@@ -3,23 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_images">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="tekin.lutfi.pixabay.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_images"
+        android:name="tekin.lutfi.pixabay.ui.ImageListFragment"
+        android:label="@string/images"
+        tools:layout="@layout/image_list_fragment" />
 
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="tekin.lutfi.pixabay.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="tekin.lutfi.pixabay.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
 </navigation>
