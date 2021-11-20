@@ -9,7 +9,7 @@ class ImageThumbnailViewHolder internal constructor(
     ): RecyclerView.ViewHolder(binding.root){
 
         fun bind(image: PixabayImage?){
-
+            binding.pixabayImage = image
         }
 
 }

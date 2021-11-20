@@ -1,6 +1,5 @@
 package tekin.lutfi.pixabay.ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collectLatest
-import tekin.lutfi.pixabay.R
+import tekin.lutfi.pixabay.adapter.PixabayImageAdapter
 import tekin.lutfi.pixabay.databinding.ImageListFragmentBinding
 
 class ImageListFragment : Fragment() {
@@ -19,12 +18,14 @@ class ImageListFragment : Fragment() {
 
     private var binding: ImageListFragmentBinding? = null
 
+    private val pixabayImageAdapter by lazy { PixabayImageAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = ImageListFragmentBinding.inflate(inflater, container, false)
+        binding?.imageListRV?.adapter = pixabayImageAdapter
         return binding?.root
     }
 
@@ -36,7 +37,7 @@ class ImageListFragment : Fragment() {
     private fun loadImages() {
         lifecycleScope.launchWhenCreated {
             viewModel.imageFlow.collectLatest {
-
+                pixabayImageAdapter.submitData(it)
             }
         }
     }
