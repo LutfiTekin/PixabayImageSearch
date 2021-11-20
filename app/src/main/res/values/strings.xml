@@ -6,4 +6,8 @@
     <string name="images">Images</string>
     <string name="hint_search_image">Search for images</string>
     <string name="credits">Powered by Pixabay 2021</string>
+    <string name="filter_by_color">Filter by color</string>
+    <string name="dialog_title_filter_images_by_color">Filter image list by color</string>
+
+
 </resources>

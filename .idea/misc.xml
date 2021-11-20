@@ -10,9 +10,12 @@
         <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/activity_main.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/activity_main2.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/content_main.xml" value="0.35989583333333336" />
-        <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/image_list_fragment.xml" value="0.35989583333333336" />
+        <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/custom_view_color_view.xml" value="0.9" />
+        <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/image_list_fragment.xml" value="0.4177997527812114" />
         <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/item_thumbnail.xml" value="0.75" />
+        <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/layout_color_selection.xml" value="0.9" />
         <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/nav_header_main.xml" value="0.20104166666666667" />
+        <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/layout/sample_color_item.xml" value="0.371875" />
         <entry key="..\:/Users/lutfi/AndroidStudioProjects/PixabayImageSearch/app/src/main/res/xml/remote_config.xml" value="0.35989583333333336" />
       </map>
     </option>

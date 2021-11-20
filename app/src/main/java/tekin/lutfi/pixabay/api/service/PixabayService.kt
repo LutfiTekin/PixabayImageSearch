@@ -10,7 +10,10 @@ interface PixabayService {
 
 
     @GET("api")
-    suspend fun getImages(@Query("q") query: String,
-                  @Query("page") page: Int): Response<MainResponse>
+    suspend fun getImages(
+        @Query("q") query: String,
+        @Query("page") page: Int,
+        @Query("colors") color: String? = null
+    ): Response<MainResponse>
 
 }

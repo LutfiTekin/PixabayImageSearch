@@ -25,4 +25,11 @@ class ImageListViewModel : ViewModel() {
                 PixabayImagePagingSource(source.value)
             }.flow.cachedIn(viewModelScope)
         }
+
+
+    fun updateColor(color: String){
+        val currentSource = source.value ?: PixabayApi()
+        currentSource.color = color
+        source.value = currentSource
+    }
 }

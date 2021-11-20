@@ -8,12 +8,13 @@ import tekin.lutfi.pixabay.utils.defaultRetrofit
 class PixabayApi() {
         var page = 0
         var query = "fruits"
+        var color: String? = null
 
         private val service = defaultRetrofit.create(PixabayService::class.java)
 
         suspend fun getImages(requestedPage: Int): List<PixabayImage>?{
             page = requestedPage
-            val images = service.getImages(query, page)
+            val images = service.getImages(query, page, color)
             return images.body()?.images
         }
 
