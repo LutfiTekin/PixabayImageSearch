@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "121355694050",
+    "project_id": "pixabay-image-search-ba626",
+    "storage_bucket": "pixabay-image-search-ba626.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121355694050:android:682bd05c00cb5e332513bb",
+        "android_client_info": {
+          "package_name": "tekin.lutfi.pixabay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121355694050-haifvgu2ma2bo4fvhkpcp3aeiguouj39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhy3W82bEGoax6CvuvQLeNM5R2g8iKVq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121355694050-haifvgu2ma2bo4fvhkpcp3aeiguouj39.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
