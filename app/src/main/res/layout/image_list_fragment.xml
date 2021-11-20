@@ -12,5 +12,33 @@
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         android:id="@+id/imageListRV"
         tools:listitem="@layout/item_thumbnail"
+        android:paddingBottom="88dp"
+        android:clipToPadding="false"
         app:spanCount="2"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:layout_gravity="bottom">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputQuery"
+                android:hint="@string/hint_search_image" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/credits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/credits"
+            android:padding="2dp"
+            android:layout_gravity="bottom|end"/>
+    </FrameLayout>
 </FrameLayout>

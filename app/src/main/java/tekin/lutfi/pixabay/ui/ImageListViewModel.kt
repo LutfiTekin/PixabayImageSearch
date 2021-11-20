@@ -1,5 +1,6 @@
 package tekin.lutfi.pixabay.ui
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -15,13 +16,13 @@ import tekin.lutfi.pixabay.utils.DEFAULT_PAGE_SIZE
 class ImageListViewModel : ViewModel() {
 
 
-    private val source = PixabayApi()
+    val source = MutableLiveData(PixabayApi())
 
     val imageFlow: Flow<PagingData<PixabayImage>>
         get() {
             val config = PagingConfig(DEFAULT_PAGE_SIZE)
             return Pager(config) {
-                PixabayImagePagingSource(source)
+                PixabayImagePagingSource(source.value)
             }.flow.cachedIn(viewModelScope)
         }
 }

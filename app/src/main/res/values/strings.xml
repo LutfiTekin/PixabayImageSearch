@@ -4,4 +4,6 @@
 
 
     <string name="images">Images</string>
+    <string name="hint_search_image">Search for images</string>
+    <string name="credits">Powered by Pixabay 2021</string>
 </resources>
