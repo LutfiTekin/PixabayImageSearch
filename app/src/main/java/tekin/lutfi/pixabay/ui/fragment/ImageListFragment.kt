@@ -1,4 +1,4 @@
-package tekin.lutfi.pixabay.ui
+package tekin.lutfi.pixabay.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -17,19 +16,22 @@ import petrov.kristiyan.colorpicker.ColorPicker
 import tekin.lutfi.pixabay.R
 import tekin.lutfi.pixabay.adapter.PixabayImageAdapter
 import tekin.lutfi.pixabay.api.datasource.PixabayApi
+import tekin.lutfi.pixabay.data.ImageSelectionListener
+import tekin.lutfi.pixabay.data.PixabayImage
 import tekin.lutfi.pixabay.databinding.ImageListFragmentBinding
 import tekin.lutfi.pixabay.utils.acceptedColors
 import tekin.lutfi.pixabay.utils.debounce
 
-class ImageListFragment : Fragment() {
+class ImageListFragment : Fragment(), ImageSelectionListener {
 
 
     private val viewModel: ImageListViewModel by activityViewModels()
 
     private var binding: ImageListFragmentBinding? = null
 
-    private val pixabayImageAdapter by lazy { PixabayImageAdapter() }
+    private val pixabayImageAdapter by lazy { PixabayImageAdapter(this) }
 
+    //region LifeCycle
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +47,23 @@ class ImageListFragment : Fragment() {
         loadImages()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+    //endregion
+
     private fun initUI() {
+        val colorSelectionListener = object : ColorPicker.OnChooseColorListener {
+            override fun onChooseColor(position: Int, color: Int) {
+                val selectedColor = acceptedColors.keys.toList()[position]
+                viewModel.updateColor(selectedColor)
+            }
+
+            override fun onCancel() {
+
+            }
+        }
         binding?.apply {
             imageListRV.adapter = pixabayImageAdapter
             inputQuery.doAfterTextChanged {
@@ -55,21 +73,14 @@ class ImageListFragment : Fragment() {
             }
             colorPicker.setOnClickListener {
                 activity ?: return@setOnClickListener
-                val colorPicker = ColorPicker(activity)
-                colorPicker.setColors(ArrayList(acceptedColors.values.toList()))
-                colorPicker.setColumns(4)
-                colorPicker.setTitle(getString(R.string.dialog_title_filter_images_by_color))
-                colorPicker.setOnChooseColorListener(object: ColorPicker.OnChooseColorListener{
-                    override fun onChooseColor(position: Int, color: Int) {
-                        val selectedColor = acceptedColors.keys.toList()[position]
-                        viewModel.updateColor(selectedColor)
-                    }
+                ColorPicker(activity).apply {
+                    setColors(ArrayList(acceptedColors.values.toList()))
+                    setColumns(4)
+                    setTitle(getString(R.string.dialog_title_filter_images_by_color))
+                    setOnChooseColorListener(colorSelectionListener)
+                    show()
+                }
 
-                    override fun onCancel() {
-
-                    }
-                })
-                colorPicker.show()
             }
         }
 
@@ -90,9 +101,10 @@ class ImageListFragment : Fragment() {
 
     private var imageLoadJob: Job? = null
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+    override fun onImageSelected(image: PixabayImage) {
+        Log.d("ImageSelected","$image")
     }
+
+
 
 }

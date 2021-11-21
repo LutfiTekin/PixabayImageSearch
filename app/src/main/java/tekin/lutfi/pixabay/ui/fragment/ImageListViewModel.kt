@@ -1,4 +1,4 @@
-package tekin.lutfi.pixabay.ui
+package tekin.lutfi.pixabay.ui.fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

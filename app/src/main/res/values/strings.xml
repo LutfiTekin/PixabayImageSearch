@@ -8,6 +8,7 @@
     <string name="credits">Powered by Pixabay 2021</string>
     <string name="filter_by_color">Filter by color</string>
     <string name="dialog_title_filter_images_by_color">Filter image list by color</string>
-
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
 </resources>

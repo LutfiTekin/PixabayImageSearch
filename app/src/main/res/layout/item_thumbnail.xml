@@ -10,12 +10,17 @@
         <variable
             name="pixabayImage"
             type="tekin.lutfi.pixabay.data.PixabayImage" />
+        <variable
+            name="listener"
+            type="tekin.lutfi.pixabay.data.ImageSelectionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:layout_margin="4dp">
+        android:layout_margin="4dp"
+        android:onClick="@{(v) -> listener.onImageSelected(pixabayImage)}"
+        >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/thumbnail"

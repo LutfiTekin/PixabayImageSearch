@@ -1,13 +1,16 @@
 package tekin.lutfi.pixabay.utils
 
+import android.app.AlertDialog
+import android.content.Context
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import tekin.lutfi.pixabay.R
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 val apiKey: String
     get() {
@@ -32,7 +35,7 @@ val acceptedColors = hashMapOf(
 
 
 /**
- * https://gist.github.com/mirmilad/f7feb8007d6b572150cb84fef0b65879
+ * Borrowed from https://gist.github.com/mirmilad/f7feb8007d6b572150cb84fef0b65879
  */
 fun <T> LiveData<T>.debounce(duration: Long = 1000L, coroutineScope: CoroutineScope) = MediatorLiveData<T>().also { mld ->
 
@@ -47,5 +50,41 @@ fun <T> LiveData<T>.debounce(duration: Long = 1000L, coroutineScope: CoroutineSc
         }
     }
 }
+
+/**
+ * Borrowed from https://github.com/Kotlin/kotlinx.coroutines/issues/1874#issuecomment-936951673
+ * Check if the cancellable coroutine is active before resuming
+ */
+fun <T> CancellableContinuation<T>.resumeSafely(value: T) {
+    if(isActive) {
+        resume(value)
+    }
+}
+
+
+suspend fun ask(
+    context: Context,
+    @StringRes title: Int = -1,
+    @StringRes content: Int = -1,
+    @StringRes negativeButton: Int = R.string.no,
+    @StringRes positiveButton: Int = R.string.yes
+): Boolean {
+    return suspendCancellableCoroutine { c ->
+        val dialog = AlertDialog.Builder(context)
+        dialog.setCancelable(true)
+        if (title != -1) dialog.setTitle(title)
+        if (content != -1) dialog.setMessage(content)
+        dialog.setNegativeButton(negativeButton) { p0, _ ->
+            p0.dismiss()
+            c.resumeSafely(false)
+        }
+        dialog.setPositiveButton(positiveButton) { p0, _ ->
+            p0.dismiss()
+            c.resumeSafely(true)
+        }
+        dialog.show()
+    }
+}
+
 
 
