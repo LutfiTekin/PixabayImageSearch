@@ -15,6 +15,7 @@ import tekin.lutfi.pixabay.utils.DEFAULT_PAGE_SIZE
 
 class ImageListViewModel : ViewModel() {
 
+    val selectedImage = MutableLiveData<PixabayImage>(null)
 
     val source = MutableLiveData(PixabayApi())
 

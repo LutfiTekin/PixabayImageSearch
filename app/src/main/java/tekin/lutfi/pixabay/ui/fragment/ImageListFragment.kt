@@ -10,6 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import petrov.kristiyan.colorpicker.ColorPicker
@@ -20,6 +21,7 @@ import tekin.lutfi.pixabay.data.ImageSelectionListener
 import tekin.lutfi.pixabay.data.PixabayImage
 import tekin.lutfi.pixabay.databinding.ImageListFragmentBinding
 import tekin.lutfi.pixabay.utils.acceptedColors
+import tekin.lutfi.pixabay.utils.ask
 import tekin.lutfi.pixabay.utils.debounce
 
 class ImageListFragment : Fragment(), ImageSelectionListener {
@@ -48,8 +50,8 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         binding = null
+        super.onDestroyView()
     }
     //endregion
 
@@ -103,6 +105,13 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
 
     override fun onImageSelected(image: PixabayImage) {
         Log.d("ImageSelected","$image")
+        lifecycleScope.launchWhenResumed {
+            val userAccepted = ask(requireContext(),R.string.dialog_title_detail,R.string.dialog_message_detail)
+            if (userAccepted){
+                viewModel.selectedImage.value = image
+                findNavController().navigate(R.id.nav_image_detail)
+            }
+        }
     }
 
 

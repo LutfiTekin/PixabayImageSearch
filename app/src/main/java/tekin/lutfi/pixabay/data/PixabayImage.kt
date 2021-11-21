@@ -54,12 +54,18 @@ data class PixabayImage(
     /**
      * Get three shortest tags from tags
      */
-    val displayedTags: String
+    val shortTags: String
         get() {
             val list = tags?.split(",") ?: emptyList()
             return list.sortedBy { it.length }
                 .take(3)
                 .joinToString(" ")
+        }
+
+    val detailTags: String
+        get() {
+            val list = tags?.split(",") ?: emptyList()
+            return list.joinToString(" ")
         }
 
 }

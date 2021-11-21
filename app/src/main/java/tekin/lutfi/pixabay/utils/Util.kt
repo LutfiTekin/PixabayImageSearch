@@ -18,7 +18,6 @@ val apiKey: String
     }
 
 
-
 val acceptedColors = hashMapOf(
     "red" to "#FF0000",
     "orange" to "#FFA500",
@@ -37,26 +36,27 @@ val acceptedColors = hashMapOf(
 /**
  * Borrowed from https://gist.github.com/mirmilad/f7feb8007d6b572150cb84fef0b65879
  */
-fun <T> LiveData<T>.debounce(duration: Long = 1000L, coroutineScope: CoroutineScope) = MediatorLiveData<T>().also { mld ->
+fun <T> LiveData<T>.debounce(duration: Long = 1000L, coroutineScope: CoroutineScope) =
+    MediatorLiveData<T>().also { mld ->
 
-    val source = this
-    var job: Job? = null
+        val source = this
+        var job: Job? = null
 
-    mld.addSource(source) {
-        job?.cancel()
-        job = coroutineScope.launch {
-            delay(duration)
-            mld.value = source.value
+        mld.addSource(source) {
+            job?.cancel()
+            job = coroutineScope.launch {
+                delay(duration)
+                mld.value = source.value
+            }
         }
     }
-}
 
 /**
  * Borrowed from https://github.com/Kotlin/kotlinx.coroutines/issues/1874#issuecomment-936951673
  * Check if the cancellable coroutine is active before resuming
  */
 fun <T> CancellableContinuation<T>.resumeSafely(value: T) {
-    if(isActive) {
+    if (isActive) {
         resume(value)
     }
 }
@@ -64,24 +64,24 @@ fun <T> CancellableContinuation<T>.resumeSafely(value: T) {
 
 suspend fun ask(
     context: Context,
-    @StringRes title: Int = -1,
-    @StringRes content: Int = -1,
+    @StringRes title: Int,
+    @StringRes content: Int,
     @StringRes negativeButton: Int = R.string.no,
     @StringRes positiveButton: Int = R.string.yes
 ): Boolean {
     return suspendCancellableCoroutine { c ->
         val dialog = AlertDialog.Builder(context)
         dialog.setCancelable(true)
-        if (title != -1) dialog.setTitle(title)
-        if (content != -1) dialog.setMessage(content)
-        dialog.setNegativeButton(negativeButton) { p0, _ ->
-            p0.dismiss()
-            c.resumeSafely(false)
-        }
-        dialog.setPositiveButton(positiveButton) { p0, _ ->
-            p0.dismiss()
-            c.resumeSafely(true)
-        }
+            .setTitle(title)
+            .setMessage(content)
+            .setNegativeButton(negativeButton) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                c.resumeSafely(false)
+            }
+            .setPositiveButton(positiveButton) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                c.resumeSafely(true)
+            }
         dialog.show()
     }
 }

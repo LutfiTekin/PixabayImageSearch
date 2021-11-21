@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:layout_editor_absoluteX="71dp"
+    tools:layout_editor_absoluteY="-7dp">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="tekin.lutfi.pixabay.ui.fragment.ImageListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/container_bg"
+        tools:context=".ui.fragment.ImageDetailFragment">
+
+        <ImageView
+            android:id="@+id/largeImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tags"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:load_image="@{viewModel.selectedImage.largeImageURL}"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/textColorPrimary"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:padding="2dp"
+            android:text="@{viewModel.selectedImage.user}"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/largeImage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@{viewModel.selectedImage.likes.toString()}"
+            android:textColor="@color/textColorPrimary"
+            app:drawableTint="@color/textColorPrimary"
+            android:textSize="@dimen/detail_small_text_size"
+            app:drawableStartCompat="@drawable/ic_baseline_thumb_up_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
+            tools:text="1024" />
+
+        <TextView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="@{viewModel.selectedImage.comments.toString()}"
+            android:textColor="@color/textColorPrimary"
+            app:drawableTint="@color/textColorPrimary"
+            android:textSize="@dimen/detail_small_text_size"
+            app:drawableStartCompat="@drawable/ic_baseline_comment_24"
+            app:layout_constraintEnd_toStartOf="@+id/downloads"
+            app:layout_constraintTop_toBottomOf="@+id/likes"
+            tools:text="42" />
+
+        <TextView
+            android:id="@+id/downloads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@{viewModel.selectedImage.downloads.toString()}"
+            android:textColor="@color/textColorPrimary"
+            app:drawableTint="@color/textColorPrimary"
+            android:textSize="@dimen/detail_small_text_size"
+            app:drawableStartCompat="@drawable/ic_baseline_cloud_download_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/likes"
+            tools:text="99" />
+
+        <TextView
+            android:id="@+id/tags"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="end"
+            android:textColor="@color/textColorPrimary"
+            app:drawableTint="@color/textColorPrimary"
+            android:text="@{viewModel.selectedImage.detailTags}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comments"
+            tools:text="Wet Wood Rain" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
