@@ -10,6 +10,8 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import tekin.lutfi.pixabay.R
 import tekin.lutfi.pixabay.databinding.ActivityLandingBinding
 import tekin.lutfi.pixabay.databinding.ActivityMainBinding
+import tekin.lutfi.pixabay.utils.Cache
+import tekin.lutfi.pixabay.utils.retrofitCache
 
 class Landing : AppCompatActivity() {
 
@@ -27,6 +29,7 @@ class Landing : AppCompatActivity() {
      * Fetch api from firebase remote config
      */
     private fun fetchRemoteConfigAndRedirect() {
+        Cache.dir = applicationContext.retrofitCache
         val configSettings = remoteConfigSettings {
             minimumFetchIntervalInSeconds = 3600
         }
