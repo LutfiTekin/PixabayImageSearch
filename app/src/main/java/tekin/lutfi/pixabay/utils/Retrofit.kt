@@ -16,8 +16,8 @@ const val DEFAULT_PAGE_SIZE = 20
 
 val defaultOkHttpClient: OkHttpClient
     get() {
-        val httpCacheDirectory = Cache.dir
-        val responseCache = with(httpCacheDirectory){
+        val httpCacheDirectory = File(retrofitCache, "rf_cache")
+        val responseCache = with(httpCacheDirectory) {
             val cacheSize: Long = 50L * 1024L * 1024L
             Cache(this ?: File(""), cacheSize)
         }
@@ -48,10 +48,11 @@ val defaultRetrofit: Retrofit
 
 private val cacheInterceptor = Interceptor { chain ->
     var request = chain.request()
-    val maxStale = 60 * 60 * 24 * 28 // tolerate 4-weeks stale
+    val cacheControl =
+        if (isInternetAvailable) CacheControl.FORCE_NETWORK else CacheControl.FORCE_CACHE
     request = request
         .newBuilder()
-        .header("Cache-Control", "public, max-age=$maxStale")
+        .cacheControl(cacheControl)
         .build()
     chain.proceed(request)
 }
@@ -80,12 +81,7 @@ private val apiKeyInterceptor = object : Interceptor {
     }
 }
 
-val Context.retrofitCache: File
+val retrofitCache: File
     get() {
-        return File(cacheDir, "rf_cache")
+        return App.instance.applicationContext.cacheDir
     }
-
-
-object Cache{
-    var dir: File? = null
-}

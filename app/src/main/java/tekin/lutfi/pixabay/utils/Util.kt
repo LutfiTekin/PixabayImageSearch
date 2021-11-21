@@ -11,6 +11,13 @@ import kotlinx.coroutines.*
 import tekin.lutfi.pixabay.R
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import android.net.NetworkInfo
+
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.*
+import android.os.Build
+
 
 val apiKey: String
     get() {
@@ -86,5 +93,20 @@ suspend fun ask(
     }
 }
 
+val isInternetAvailable: Boolean
+    get() {
+        val context: Context = App.instance.applicationContext
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkCapabilities = connectivityManager.activeNetwork ?: return false
+        val actNw =
+            connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+        return when {
+            actNw.hasTransport(TRANSPORT_WIFI)
+                    || actNw.hasTransport(TRANSPORT_CELLULAR)
+                    || actNw.hasTransport(TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
+    }
 
 
