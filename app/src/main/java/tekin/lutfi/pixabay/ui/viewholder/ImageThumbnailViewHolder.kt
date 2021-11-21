@@ -12,7 +12,10 @@ class ImageThumbnailViewHolder internal constructor(
 
         fun bind(image: PixabayImage?){
             binding.pixabayImage = image
-            binding.listener = imageSelectionListener
+            binding.root.setOnClickListener {
+                image ?: return@setOnClickListener
+                imageSelectionListener.onImageSelected(image,binding)
+            }
         }
 
 }

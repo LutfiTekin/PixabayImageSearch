@@ -10,16 +10,12 @@
         <variable
             name="pixabayImage"
             type="tekin.lutfi.pixabay.data.PixabayImage" />
-        <variable
-            name="listener"
-            type="tekin.lutfi.pixabay.data.ImageSelectionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_margin="4dp"
-        android:onClick="@{(v) -> listener.onImageSelected(pixabayImage)}"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -29,6 +25,7 @@
             android:scaleType="centerCrop"
             android:foreground="@drawable/scrim_background"
             bind:load_image="@{pixabayImage.previewURL}"
+            android:transitionName="@string/tn_image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,6 +60,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:transitionName="@string/tn_username"
             tools:text="JohnDoe" />
 
         <TextView
@@ -79,6 +77,7 @@
             app:layout_constraintStart_toStartOf="@+id/thumbnail"
             tools:text="1024"
             android:text="@{pixabayImage.likes.toString()}"
+            android:transitionName="@string/tn_likes"
             app:drawableStartCompat="@drawable/ic_baseline_thumb_up_24" />
 
         <TextView
@@ -95,6 +94,7 @@
             app:layout_constraintStart_toEndOf="@+id/likes"
             tools:text="42"
             android:text="@{pixabayImage.comments.toString()}"
+            android:transitionName="@string/tn_comments"
             app:drawableStartCompat="@drawable/ic_baseline_comment_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

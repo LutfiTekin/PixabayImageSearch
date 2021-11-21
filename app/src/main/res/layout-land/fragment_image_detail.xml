@@ -32,6 +32,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tags"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:transitionName="@string/tn_image"
             bind:load_image="@{viewModel.selectedImage.largeImageURL}"
             tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -47,6 +48,7 @@
             android:text="@{viewModel.selectedImage.user}"
             android:textColor="@color/textColorPrimary"
             android:textSize="32sp"
+            android:transitionName="@string/tn_username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="John Doe" />
@@ -64,6 +66,7 @@
             android:textSize="@dimen/detail_small_text_size"
             app:drawableStartCompat="@drawable/ic_baseline_thumb_up_24"
             app:layout_constraintEnd_toEndOf="parent"
+            android:transitionName="@string/tn_likes"
             app:layout_constraintTop_toBottomOf="@+id/userName"
             tools:text="1024" />
 
@@ -78,6 +81,7 @@
             android:textColor="@color/textColorPrimary"
             app:drawableTint="@color/textColorPrimary"
             android:textSize="@dimen/detail_small_text_size"
+            android:transitionName="@string/tn_comments"
             app:drawableStartCompat="@drawable/ic_baseline_comment_24"
             app:layout_constraintEnd_toStartOf="@+id/downloads"
             app:layout_constraintTop_toBottomOf="@+id/likes"

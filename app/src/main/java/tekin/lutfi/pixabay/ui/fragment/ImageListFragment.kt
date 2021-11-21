@@ -20,9 +20,11 @@ import tekin.lutfi.pixabay.api.datasource.PixabayApi
 import tekin.lutfi.pixabay.data.ImageSelectionListener
 import tekin.lutfi.pixabay.data.PixabayImage
 import tekin.lutfi.pixabay.databinding.ImageListFragmentBinding
+import tekin.lutfi.pixabay.databinding.ItemThumbnailBinding
 import tekin.lutfi.pixabay.utils.acceptedColors
 import tekin.lutfi.pixabay.utils.ask
 import tekin.lutfi.pixabay.utils.debounce
+import tekin.lutfi.pixabay.utils.sharedElements
 
 class ImageListFragment : Fragment(), ImageSelectionListener {
 
@@ -67,7 +69,15 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
             }
         }
         binding?.apply {
-            imageListRV.adapter = pixabayImageAdapter
+            imageListRV.apply {
+                adapter = pixabayImageAdapter
+                postponeEnterTransition()
+                viewTreeObserver
+                    .addOnPreDrawListener {
+                        startPostponedEnterTransition()
+                        true
+                    }
+            }
             inputQuery.doAfterTextChanged {
                 viewModel.source.postValue(PixabayApi().apply {
                     query = it.toString()
@@ -103,13 +113,13 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
 
     private var imageLoadJob: Job? = null
 
-    override fun onImageSelected(image: PixabayImage) {
+    override fun onImageSelected(image: PixabayImage, binding: ItemThumbnailBinding) {
         Log.d("ImageSelected","$image")
         lifecycleScope.launchWhenResumed {
             val userAccepted = ask(requireContext(),R.string.dialog_title_detail,R.string.dialog_message_detail)
             if (userAccepted){
                 viewModel.selectedImage.value = image
-                findNavController().navigate(R.id.nav_image_detail)
+                findNavController().navigate(R.id.nav_image_detail, null, null, binding.sharedElements)
             }
         }
     }

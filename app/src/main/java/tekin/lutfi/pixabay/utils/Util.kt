@@ -10,13 +10,12 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.*
 import tekin.lutfi.pixabay.R
 import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
-import android.net.NetworkInfo
 
 import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.*
-import android.os.Build
+import androidx.core.view.ViewCompat
+import androidx.navigation.fragment.FragmentNavigator
+import tekin.lutfi.pixabay.databinding.ItemThumbnailBinding
 
 
 val apiKey: String
@@ -106,6 +105,19 @@ val isInternetAvailable: Boolean
                     || actNw.hasTransport(TRANSPORT_CELLULAR)
                     || actNw.hasTransport(TRANSPORT_ETHERNET) -> true
             else -> false
+        }
+    }
+
+
+val ItemThumbnailBinding.sharedElements: FragmentNavigator.Extras
+    get() {
+        return with(this){
+            FragmentNavigator.Extras.Builder()
+                .addSharedElement(thumbnail, ViewCompat.getTransitionName(thumbnail).orEmpty())
+                .addSharedElement(likes, ViewCompat.getTransitionName(likes).orEmpty())
+                .addSharedElement(comments, ViewCompat.getTransitionName(comments).orEmpty())
+                .addSharedElement(userName, ViewCompat.getTransitionName(userName).orEmpty())
+                .build()
         }
     }
 
