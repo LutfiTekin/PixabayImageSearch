@@ -16,24 +16,25 @@ import kotlinx.coroutines.flow.collectLatest
 import petrov.kristiyan.colorpicker.ColorPicker
 import tekin.lutfi.pixabay.R
 import tekin.lutfi.pixabay.adapter.PixabayImageAdapter
-import tekin.lutfi.pixabay.api.datasource.PixabayApi
 import tekin.lutfi.pixabay.data.ImageSelectionListener
 import tekin.lutfi.pixabay.data.PixabayImage
 import tekin.lutfi.pixabay.databinding.ImageListFragmentBinding
 import tekin.lutfi.pixabay.utils.acceptedColors
-import tekin.lutfi.pixabay.utils.ask
+import tekin.lutfi.pixabay.utils.confirm
 import tekin.lutfi.pixabay.utils.debounce
 
 class ImageListFragment : Fragment(), ImageSelectionListener {
 
 
+    //region Variables
     private val viewModel: ImageListViewModel by activityViewModels()
 
     private var binding: ImageListFragmentBinding? = null
 
     private val pixabayImageAdapter by lazy { PixabayImageAdapter(this) }
+    //endregion
 
-    //region LifeCycle
+    //region LifeCycle methods
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -69,9 +70,7 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
         binding?.apply {
             imageListRV.adapter = pixabayImageAdapter
             inputQuery.doAfterTextChanged {
-                viewModel.source.postValue(PixabayApi().apply {
-                    query = it.toString()
-                })
+                viewModel.updateQuery(it.toString())
             }
             colorPicker.setOnClickListener {
                 activity ?: return@setOnClickListener
@@ -106,7 +105,7 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
     override fun onImageSelected(image: PixabayImage) {
         Log.d("ImageSelected","$image")
         lifecycleScope.launchWhenResumed {
-            val userAccepted = ask(requireContext(),R.string.dialog_title_detail,R.string.dialog_message_detail)
+            val userAccepted = confirm(requireContext(),R.string.dialog_title_detail,R.string.dialog_message_detail)
             if (userAccepted){
                 viewModel.selectedImage.value = image
                 findNavController().navigate(R.id.nav_image_detail)

@@ -33,4 +33,10 @@ class ImageListViewModel : ViewModel() {
         currentSource.color = color
         source.value = currentSource
     }
+
+    fun updateQuery(query: String){
+        val currentSource = source.value ?: PixabayApi()
+        currentSource.query = query
+        source.value = currentSource
+    }
 }

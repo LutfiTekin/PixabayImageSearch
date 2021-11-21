@@ -1,6 +1,5 @@
 package tekin.lutfi.pixabay.utils
 
-import android.content.Context
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,10 +12,11 @@ import java.util.concurrent.TimeUnit
 const val BASE_URL = "https://pixabay.com/"
 const val DEFAULT_TIMEOUT = 20000L
 const val DEFAULT_PAGE_SIZE = 20
+const val CACHE_DIR = "rf_cache"
 
-val defaultOkHttpClient: OkHttpClient
+val okHttpClient: OkHttpClient
     get() {
-        val httpCacheDirectory = File(retrofitCache, "rf_cache")
+        val httpCacheDirectory = File(retrofitCache, CACHE_DIR)
         val responseCache = with(httpCacheDirectory) {
             val cacheSize: Long = 50L * 1024L * 1024L
             Cache(this ?: File(""), cacheSize)
@@ -33,11 +33,11 @@ val defaultOkHttpClient: OkHttpClient
             .build()
     }
 
-val defaultRetrofit: Retrofit
+val retrofit: Retrofit
     get() {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(defaultOkHttpClient)
+            .client(okHttpClient)
             .addConverterFactory(
                 GsonConverterFactory.create(
                     GsonBuilder().serializeNulls().create()

@@ -69,7 +69,7 @@ fun <T> CancellableContinuation<T>.resumeSafely(value: T) {
 }
 
 
-suspend fun ask(
+suspend fun confirm(
     context: Context,
     @StringRes title: Int,
     @StringRes content: Int,

@@ -12,11 +12,14 @@ import tekin.lutfi.pixabay.databinding.FragmentImageDetailBinding
 
 class ImageDetailFragment : Fragment() {
 
+    //region Variables
     private var binding: FragmentImageDetailBinding? = null
 
     private val viewModel: ImageListViewModel by activityViewModels()
+    //endregion
 
 
+    //region LifeCycle methods
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +33,7 @@ class ImageDetailFragment : Fragment() {
         binding = null
         super.onDestroy()
     }
+    //endregion
 
 
 }
