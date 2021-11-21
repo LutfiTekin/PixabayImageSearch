@@ -15,7 +15,7 @@
         android:theme="@style/Theme.PixabayImageSearch"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name=".ui.Landing"
+            android:name=".ui.activity.Landing"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"/>
+            android:name=".ui.activity.MainActivity"/>
     </application>
 
 </manifest>

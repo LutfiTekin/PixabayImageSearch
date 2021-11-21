@@ -39,18 +39,15 @@
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@color/textColorPrimary"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:padding="2dp"
             android:text="@{viewModel.selectedImage.user}"
+            android:textColor="@color/textColorPrimary"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/largeImage"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="John Doe" />
 
@@ -117,5 +114,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comments"
             tools:text="Wet Wood Rain" />
+
+        <ImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="42dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="8dp"
+            bind:load_image="@{viewModel.selectedImage.userImageURL}"
+            app:layout_constraintBottom_toBottomOf="@+id/userName"
+            app:layout_constraintEnd_toStartOf="@+id/userName"
+            app:layout_constraintStart_toEndOf="@+id/largeImage"
+            app:layout_constraintTop_toTopOf="@+id/userName"
+            tools:srcCompat="@tools:sample/avatars" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

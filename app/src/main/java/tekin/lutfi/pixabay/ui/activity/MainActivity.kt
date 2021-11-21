@@ -1,4 +1,4 @@
-package tekin.lutfi.pixabay.ui
+package tekin.lutfi.pixabay.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
