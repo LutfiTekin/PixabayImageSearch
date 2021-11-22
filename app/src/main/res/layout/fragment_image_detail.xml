@@ -16,8 +16,8 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.ImageDetailFragment"
-        android:background="@color/container_bg">
+        android:background="@color/container_bg"
+        tools:context=".ui.fragment.ImageDetailFragment">
 
         <ImageView
             android:id="@+id/largeImage"
@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/userName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -43,8 +43,7 @@
             android:text="@{viewModel.selectedImage.user}"
             android:textColor="@color/textColorPrimary"
             android:textSize="32sp"
-            app:layout_constraintEnd_toStartOf="@+id/likes"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/userAvatar"
             app:layout_constraintTop_toBottomOf="@+id/largeImage"
             tools:text="John Doe" />
@@ -53,48 +52,48 @@
             android:id="@+id/likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="@{viewModel.selectedImage.likes.toString()}"
             android:textColor="@color/textColorPrimary"
-            app:drawableTint="@color/textColorPrimary"
             android:textSize="@dimen/detail_small_text_size"
             app:drawableStartCompat="@drawable/ic_baseline_thumb_up_24"
-            app:layout_constraintEnd_toStartOf="@+id/comments"
-            app:layout_constraintTop_toBottomOf="@+id/largeImage"
+            app:drawableTint="@color/textColorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
             tools:text="1024" />
 
         <TextView
             android:id="@+id/comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="@{viewModel.selectedImage.comments.toString()}"
             android:textColor="@color/textColorPrimary"
-            app:drawableTint="@color/textColorPrimary"
             android:textSize="@dimen/detail_small_text_size"
             app:drawableStartCompat="@drawable/ic_baseline_comment_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/largeImage"
+            app:drawableTint="@color/textColorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/likes"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
             tools:text="42" />
 
         <TextView
             android:id="@+id/downloads"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@{viewModel.selectedImage.downloads.toString()}"
             android:textColor="@color/textColorPrimary"
-            app:drawableTint="@color/textColorPrimary"
             android:textSize="@dimen/detail_small_text_size"
             app:drawableStartCompat="@drawable/ic_baseline_cloud_download_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comments"
+            app:drawableTint="@color/textColorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/comments"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
             tools:text="99" />
 
         <TextView
@@ -105,12 +104,12 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
+            android:text="@{viewModel.selectedImage.detailTags}"
+            android:textColor="@color/textColorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userName"
-            android:text="@{viewModel.selectedImage.detailTags}"
-            android:textColor="@color/textColorPrimary"
             tools:text="Wet Wood Rain" />
 
         <ImageView
@@ -118,10 +117,10 @@
             android:layout_width="42dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            bind:load_image="@{viewModel.selectedImage.userImageURL}"
             app:layout_constraintBottom_toBottomOf="@+id/userName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/userName"
+            bind:load_image="@{viewModel.selectedImage.userImageURL}"
             tools:src="@tools:sample/avatars" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
