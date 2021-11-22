@@ -3,6 +3,9 @@ package tekin.lutfi.pixabay.data
 
 import com.google.gson.annotations.SerializedName
 
+const val TAG_DELIMITER = ","
+const val TAG_SEPARATOR = " "
+
 data class PixabayImage(
     @SerializedName("id")
     val id: Int?,
@@ -30,16 +33,16 @@ data class PixabayImage(
      */
     val shortTags: String
         get() {
-            val list = tags?.split(",") ?: emptyList()
+            val list = tags?.split(TAG_DELIMITER) ?: emptyList()
             return list.sortedBy { it.length }
                 .take(3)
-                .joinToString(" ")
+                .joinToString(TAG_SEPARATOR)
         }
 
     val detailTags: String
         get() {
-            val list = tags?.split(",") ?: emptyList()
-            return list.joinToString(" ")
+            val list = tags?.split(TAG_DELIMITER) ?: emptyList()
+            return list.joinToString(TAG_SEPARATOR)
         }
 
 }

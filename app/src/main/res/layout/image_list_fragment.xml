@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/credits"
-            android:padding="2dp"
+            android:padding="8dp"
             android:layout_gravity="bottom|end"/>
         <LinearLayout
             android:id="@+id/colorPicker"
