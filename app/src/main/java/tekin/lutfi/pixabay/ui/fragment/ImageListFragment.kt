@@ -58,7 +58,7 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
     private fun initUI() {
         val colorSelectionListener = object : ColorPicker.OnChooseColorListener {
             override fun onChooseColor(position: Int, color: Int) {
-                val selectedColor = acceptedColors.keys.toList()[position]
+                val selectedColor = acceptedColors.keys.toList().getOrNull(position).orEmpty()
                 viewModel.updateColor(selectedColor)
             }
 
