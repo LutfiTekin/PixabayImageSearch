@@ -78,7 +78,7 @@ suspend fun confirm(
 ): Boolean {
     return suspendCancellableCoroutine { c ->
         val dialog = AlertDialog.Builder(context)
-        dialog.setCancelable(true)
+        dialog.setCancelable(false)
             .setTitle(title)
             .setMessage(content)
             .setNegativeButton(negativeButton) { dialogInterface, _ ->

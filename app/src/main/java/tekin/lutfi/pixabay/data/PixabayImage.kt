@@ -2,6 +2,7 @@ package tekin.lutfi.pixabay.data
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 const val TAG_DELIMITER = ","
 const val TAG_SEPARATOR = " "
@@ -27,7 +28,7 @@ data class PixabayImage(
     val userImageURL: String?,
     @SerializedName("views")
     val views: Int?
-){
+): Serializable{
     /**
      * Get three shortest tags from tags
      */

@@ -22,6 +22,8 @@ import tekin.lutfi.pixabay.utils.acceptedColors
 import tekin.lutfi.pixabay.utils.confirm
 import tekin.lutfi.pixabay.utils.debounce
 
+const val LAST_SELECTED_IMAGE = "lsi"
+
 class ImageListFragment : Fragment(), ImageSelectionListener {
 
 
@@ -39,7 +41,6 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = ImageListFragmentBinding.inflate(inflater, container, false)
-
         return binding?.root
     }
 
@@ -53,6 +54,20 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
         binding = null
         super.onDestroyView()
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(LAST_SELECTED_IMAGE,lastSelectedImage)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        lastSelectedImage = savedInstanceState?.getSerializable(LAST_SELECTED_IMAGE) as PixabayImage?
+        lastSelectedImage?.let {
+            onImageSelected(it)
+        }
+    }
+
     //endregion
 
     private fun initUI() {
@@ -100,14 +115,17 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
     }
 
     private var imageLoadJob: Job? = null
+    private var lastSelectedImage: PixabayImage? = null
 
     override fun onImageSelected(image: PixabayImage) {
         lifecycleScope.launchWhenResumed {
+            lastSelectedImage = image
             val userAccepted = confirm(requireContext(),R.string.dialog_title_detail,R.string.dialog_message_detail)
             if (userAccepted){
                 viewModel.selectedImage.value = image
                 findNavController().navigate(R.id.nav_image_detail)
             }
+            lastSelectedImage = null //Dialog consumed
         }
     }
 
