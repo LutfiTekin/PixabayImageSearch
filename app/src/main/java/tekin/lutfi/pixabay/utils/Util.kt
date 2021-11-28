@@ -93,9 +93,9 @@ suspend fun confirm(
     }
 }
 
-val isInternetAvailable: Boolean
+val Context.isInternetAvailable: Boolean
     get() {
-        val context: Context = App.instance.applicationContext
+        val context = this
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkCapabilities = connectivityManager.activeNetwork ?: return false

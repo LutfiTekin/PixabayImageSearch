@@ -1,15 +1,7 @@
 package tekin.lutfi.pixabay.utils
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class App: Application() {
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
-    }
-
-    companion object {
-        lateinit var instance: App
-            private set
-    }
-}
+@HiltAndroidApp
+class App: Application()

@@ -6,9 +6,11 @@ import android.os.Bundle
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import dagger.hilt.android.AndroidEntryPoint
 import tekin.lutfi.pixabay.R
 import tekin.lutfi.pixabay.databinding.ActivityLandingBinding
 
+@AndroidEntryPoint
 class Landing : AppCompatActivity() {
 
     private var binding: ActivityLandingBinding? = null

@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import petrov.kristiyan.colorpicker.ColorPicker
@@ -24,6 +25,7 @@ import tekin.lutfi.pixabay.utils.debounce
 
 const val LAST_SELECTED_IMAGE = "lsi"
 
+@AndroidEntryPoint
 class ImageListFragment : Fragment(), ImageSelectionListener {
 
 

@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import dagger.hilt.android.AndroidEntryPoint
 import tekin.lutfi.pixabay.R
 import tekin.lutfi.pixabay.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
