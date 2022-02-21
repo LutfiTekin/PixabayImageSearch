@@ -35,6 +35,9 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
     private var binding: ImageListFragmentBinding? = null
 
     private val pixabayImageAdapter by lazy { PixabayImageAdapter(this) }
+
+    //https://stackoverflow.com/a/55039009/3742074
+    private var storedView: View? = null
     //endregion
 
     //region LifeCycle methods
@@ -42,14 +45,18 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (storedView != null) return storedView
         binding = ImageListFragmentBinding.inflate(inflater, container, false)
-        return binding?.root
+        lifecycleScope.launchWhenStarted {
+            loadImages()
+        }
+        storedView = binding?.root
+        return storedView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
-        loadImages()
     }
 
     override fun onDestroyView() {
