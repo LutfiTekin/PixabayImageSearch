@@ -36,6 +36,7 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
 
     private val pixabayImageAdapter by lazy { PixabayImageAdapter(this) }
 
+    //https://stackoverflow.com/a/55039009/3742074
     private var storedView: View? = null
     //endregion
 
