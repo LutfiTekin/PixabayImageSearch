@@ -36,6 +36,10 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
 
     private val pixabayImageAdapter by lazy { PixabayImageAdapter(this) }
 
+    private var imageLoadJob: Job? = null
+
+    private var lastSelectedImage: PixabayImage? = null
+
     //https://stackoverflow.com/a/55039009/3742074
     private var storedView: View? = null
     //endregion
@@ -122,9 +126,6 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
         })
 
     }
-
-    private var imageLoadJob: Job? = null
-    private var lastSelectedImage: PixabayImage? = null
 
     override fun onImageSelected(image: PixabayImage) {
         lifecycleScope.launchWhenResumed {
