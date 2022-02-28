@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import petrov.kristiyan.colorpicker.ColorPicker
 import tekin.lutfi.pixabay.R
 import tekin.lutfi.pixabay.adapter.PixabayImageAdapter
@@ -40,8 +41,11 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
 
     private var lastSelectedImage: PixabayImage? = null
 
-    //https://stackoverflow.com/a/55039009/3742074
-    private var storedView: View? = null
+    /**
+     * Flag for keeping track of first initialization
+     * for preventing load images to be called again when user returns
+     */
+    private var firstInit = true
     //endregion
 
     //region LifeCycle methods
@@ -49,13 +53,11 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (storedView != null) return storedView
         binding = ImageListFragmentBinding.inflate(inflater, container, false)
-        lifecycleScope.launchWhenStarted {
+        if (firstInit)
             loadImages()
-        }
-        storedView = binding?.root
-        return storedView
+        firstInit = false
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -116,14 +118,14 @@ class ImageListFragment : Fragment(), ImageSelectionListener {
 
     private fun loadImages() {
         viewModel.source.debounce(1000,lifecycleScope)
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner) {
                 imageLoadJob?.cancel()
-                imageLoadJob = lifecycleScope.launchWhenCreated {
+                imageLoadJob = lifecycleScope.launch {
                     viewModel.imageFlow.collectLatest {
                         pixabayImageAdapter.submitData(it)
                     }
                 }
-        })
+            }
 
     }
 
